@@ -3,7 +3,7 @@ USE LudusRecommenderDB;
 GO
 
 /*
-Tables Needed - GameLog, GameLove, GameDifficulty
+Tables Needed - GameLog, Review, GameLove, GameDifficulty
 
 Procedures Needed - CreateAllTables, DropAllTables, CreateRoles, InitalizeLudusRecommender
 
@@ -20,7 +20,12 @@ AS
 		GameID INT PRIMARY KEY IDENTITY(1,1),
 		Game VARCHAR(50),
 		Genre VARCHAR(50),
-		Platform VARCHAR(50),
+		Platform VARCHAR(50)
+	);
+	
+	CREATE TABLE Review (
+		ReviewID INT PRIMARY KEY IDENTITY(1,1),
+		GameID INT FOREIGN KEY REFERENCES GameLog(GameID),
 		Owned VARCHAR(3),
 		Replay VARCHAR(3),
 		Platable VARCHAR(50),
@@ -30,7 +35,7 @@ AS
 		TimeTakenToFinish INT,
 		Recommended BIT -- 1 for Yes, 0 for No
 	);
-	
+
 	CREATE TABLE GameLove (
 		LoveID INT PRIMARY KEY IDENTITY(1,1),
 		GameID INT FOREIGN KEY REFERENCES Game(GameID),
@@ -57,7 +62,7 @@ AS
 	END;
 GO
 
-CREATE PROCEDURE CreateRoles
+CREATE PROCEDURE CreateAllRoles
 AS
 	BEGIN
 	CREATE ROLE Admin;
@@ -74,3 +79,16 @@ AS
 	END;
 GO
 
+CREATE VIEW LoveAndDifficulty AS
+	SELECT *
+	FROM  GameLog GL
+	JOIN GameLove GLV ON GL.GameID = GLV.GameID
+	JOIN GameDifficulty GD ON GL.GameID = GD.GameID;
+GO
+	
+CREATE VIEW RecommendedGames AS
+	SELECT *
+	FROM GameLog GL
+	JOIN Review R ON GL.GameID = R.GameID
+	WHERE R.Recommended = 1;
+GO
