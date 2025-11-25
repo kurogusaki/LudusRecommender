@@ -3,29 +3,13 @@ USE LudusRecommenderDB;
 GO
 
 /*
-Tables Needed
--------------
-GameLog
-GameLove
-GameDifficulty
+Tables Needed - GameLog, GameLove, GameDifficulty
 
-Procedures Needed
------------------
-CreateAllTables
+Procedures Needed - CreateAllTables, DropAllTables, CreateRoles, InitalizeLudusRecommender
 
-Users Needed
--------------
+Roles Needed - Admin, Reviewer, Viewer
 
-Roles Needed
-------------
-Admin
-Recommender
-User
-
-Views Needed
--------------
-LoveAndRank 
-RecommendedGames
+Views Needed - LoveAndRank, RecommendedGames, GenreSummary
  */
 
 CREATE PROCEDURE CreateAllTables
@@ -63,3 +47,30 @@ AS
 
 	END;
 GO
+
+CREATE PROCEDURE DropAllTables
+AS
+	BEGIN
+	DROP TABLE IF EXISTS GameDifficulty;
+	DROP TABLE IF EXISTS GameLove;
+	DROP TABLE IF EXISTS GameLog;
+	END;
+GO
+
+CREATE PROCEDURE CreateRoles
+AS
+	BEGIN
+	CREATE ROLE Admin;
+	CREATE ROLE Reviewer;
+	CREATE ROLE Viewer;
+	END;
+GO
+
+CREATE PROCEDURE InitalizeLudusRecommender
+AS
+	BEGIN
+	EXEC CreateAllTables;
+	EXEC CreateRoles;
+	END;
+GO
+
