@@ -18,4 +18,4 @@ This project implements a structured SQL-based database system designed to gener
 
 The data is organized into a clean and efficient relational schema, enabling powerful querying, filtering, and analysis. This system supports informed, data-driven decision-making for evaluating and recommending games based on multiple criteria.
 
-V0.1 - Table Implementation 
+Release On v1.0
