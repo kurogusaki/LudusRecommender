@@ -1,14 +1,18 @@
-import { getSheetData } from "@/lib/sheets";
-import { type NextRequest, NextResponse } from "next/server";
+import { getAllGames } from "@/lib/games";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const data = await getSheetData("Plats!A1:D16");
-    return NextResponse.json({ success: true, data });
+    const games = await getAllGames();
+    return NextResponse.json({
+      success: true,
+      count: games.length,
+      games,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch sheet data" },
+      { success: false, error: "Failed to fetch and transform games" },
       { status: 500 }
     );
   }

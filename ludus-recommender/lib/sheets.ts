@@ -11,13 +11,13 @@ const sheets = google.sheets({
   auth: apiKey,
 });
 
-export async function getSheetData(range: string) {
+export async function getSheetData(range: string): Promise<string[][]> {
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: sheetId,
     range,
   });
 
-  return response.data.values;
+  return (response.data.values as string[][]) ?? [];
 }
 
 // Example usage: getSheetData("TabName!StartCell:EndCell")
