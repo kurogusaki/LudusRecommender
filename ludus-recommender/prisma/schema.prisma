@@ -1,14 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -16,11 +11,63 @@ enum Role {
   ADMIN
 }
 
+// ─── User & Auth ──────────────────────────────────────────────
+
 model User {
   id        String    @id @default(cuid())
   email     String    @unique
-  password  String
+  name      String?
   role      Role      @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// ─── Game Data ────────────────────────────────────────────────
+
+model Game {
+  id             String   @id @default(cuid())
+  number         Int?
+  name           String   @unique  // join key from Google Sheets
+  date           String?           // e.g. "13/Sep/2018"
+  platform       String?
+
+  // Tab 2 — Love/Difficulty ranks (S, A, B, C, D)
+  loveRank       String?
+  difficultyRank String?
+
+  // Tab 3 — Plat Rankings scores
+  year           Int?
+  love           Float?            // 0–5
+  difficulty     Float?            // 0–5
+  pride          Float?            // -1–5 (penalty for MP trophies)
+  achievement    Float?            // 0–5 (0 = rarity > 50%)
+  list           Float?            // 0–5
+  total          Float?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  syncLogs       SyncLog[]
+}
+
+// ─── Sync Tracking ────────────────────────────────────────────
+
+model SyncLog {
+  id              String   @id @default(cuid())
+  ranAt           DateTime @default(now())
+  recordsProcessed Int
+  recordsSkipped  Int      @default(0)
+  success         Boolean
+  error           String?           // null if successful
+  gameId          String?
+  game            Game?    @relation(fields: [gameId], references: [id])
 }
