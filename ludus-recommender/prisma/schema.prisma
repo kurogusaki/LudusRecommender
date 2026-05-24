@@ -36,27 +36,26 @@ model Session {
 model Game {
   id             String   @id @default(cuid())
   number         Int?
-  name           String   @unique  // join key from Google Sheets
-  date           String?           // e.g. "13/Sep/2018"
+  name           String
+  date           String?
   platform       String?
 
-  // Tab 2 — Love/Difficulty ranks (S, A, B, C, D)
   loveRank       String?
   difficultyRank String?
 
-  // Tab 3 — Plat Rankings scores
   year           Int?
-  love           Float?            // 0–5
-  difficulty     Float?            // 0–5
-  pride          Float?            // -1–5 (penalty for MP trophies)
-  achievement    Float?            // 0–5 (0 = rarity > 50%)
-  list           Float?            // 0–5
+  love           Float?
+  difficulty     Float?
+  pride          Float?
+  achievement    Float?
+  list           Float?
   total          Float?
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-
   syncLogs       SyncLog[]
+
+  @@unique([name, platform])  // ← composite unique key
 }
 
 // ─── Sync Tracking ────────────────────────────────────────────

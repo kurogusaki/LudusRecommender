@@ -22,12 +22,22 @@ export async function syncGamesFromSheet(): Promise<{
     for (const game of games) {
       try {
         // Check if game already exists
-        const existing = await prisma.game.findUnique({
-          where: { name: game.name },
-        });
+       const existing = await prisma.game.findUnique({
+        where: {
+          name_platform: {
+            name: game.name,
+            platform: game.platform ?? "",
+          },
+        },
+      });
 
         await prisma.game.upsert({
-          where: { name: game.name },
+          where: { 
+            name_platform: { 
+              name: game.name, 
+              platform: game.platform ?? "",
+          }
+        },
           update: {
             number:         game.number,
             date:           game.date,
