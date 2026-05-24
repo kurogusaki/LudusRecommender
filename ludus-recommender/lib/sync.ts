@@ -22,54 +22,55 @@ export async function syncGamesFromSheet(): Promise<{
     for (const game of games) {
       try {
         // Check if game already exists
-       const existing = await prisma.game.findUnique({
-        where: {
-          name_platform: {
+        const existing = await prisma.game.findFirst({
+          where: {
             name: game.name,
             platform: game.platform ?? "",
           },
-        },
-      });
-
-        await prisma.game.upsert({
-          where: { 
-            name_platform: { 
-              name: game.name, 
-              platform: game.platform ?? "",
-          }
-        },
-          update: {
-            number:         game.number,
-            date:           game.date,
-            platform:       game.platform,
-            loveRank:       game.loveRank || null,
-            difficultyRank: game.difficultyRank || null,
-            year:           game.year,
-            love:           game.love,
-            difficulty:     game.difficulty,
-            pride:          game.pride,
-            achievement:    game.achievement,
-            list:           game.list,
-            total:          game.total,
-          },
-          create: {
-            name:           game.name,
-            number:         game.number,
-            date:           game.date,
-            platform:       game.platform,
-            loveRank:       game.loveRank || null,
-            difficultyRank: game.difficultyRank || null,
-            year:           game.year,
-            love:           game.love,
-            difficulty:     game.difficulty,
-            pride:          game.pride,
-            achievement:    game.achievement,
-            list:           game.list,
-            total:          game.total,
-          },
         });
 
-        existing ? updated++ : inserted++;
+        if (existing) {
+          // Update existing
+          await prisma.game.update({
+            where: { id: existing.id },
+            data: {
+              number:         game.number,
+              date:           game.date,
+              platform:       game.platform,
+              loveRank:       game.loveRank || null,
+              difficultyRank: game.difficultyRank || null,
+              year:           game.year,
+              love:           game.love,
+              difficulty:     game.difficulty,
+              pride:          game.pride,
+              achievement:    game.achievement,
+              list:           game.list,
+              total:          game.total,
+            },
+          });
+          updated++;
+        } else {
+          // Create new
+          await prisma.game.create({
+            data: {
+              name:           game.name,
+              number:         game.number,
+              date:           game.date,
+              platform:       game.platform,
+              loveRank:       game.loveRank || null,
+              difficultyRank: game.difficultyRank || null,
+              year:           game.year,
+              love:           game.love,
+              difficulty:     game.difficulty,
+              pride:          game.pride,
+              achievement:    game.achievement,
+              list:           game.list,
+              total:          game.total,
+            },
+          });
+          inserted++;
+        }
+
         processed++;
       } catch (rowError) {
         console.warn(`Skipping game "${game.name}":`, rowError);
@@ -82,7 +83,6 @@ export async function syncGamesFromSheet(): Promise<{
     console.error("Sync failed:", errorMessage);
   }
 
-  // ─── Log the sync run ────────────────────────────────────
   await prisma.syncLog.create({
     data: {
       recordsProcessed: processed,
