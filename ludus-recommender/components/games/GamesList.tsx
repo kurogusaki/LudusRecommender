@@ -68,28 +68,26 @@ function RankBadge({ rank, label }: { rank: string | null; label: string }) {
     </div>
   );
 }
-
 function DifficultyPips({ rank }: { rank: string | null }) {
   const order = ["F", "D", "C", "B", "A", "S"];
   const level = rank ? order.indexOf(rank) + 1 : 0;
   return (
-    <div style={{ display: "flex", gap: "3px", alignItems: "center" }}>
+    <div style={{ display: "flex", gap: "2px", alignItems: "center" }}>
       {order.map((_, i) => (
         <span
           key={i}
           style={{
-            width: "6px",
-            height: "6px",
-            borderRadius: "1px",
-            background: i < level ? "var(--gold)" : "var(--border)",
-            display: "inline-block",
+            fontSize: "0.75rem",
+            lineHeight: 1,
+            opacity: i < level ? 1 : 0.2,
           }}
-        />
+        >
+          💀
+        </span>
       ))}
     </div>
   );
 }
-
 function EmptyState() {
   return (
     <div
