@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { toSlug } from "@/lib/slug";
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -159,13 +161,15 @@ function EmptyState() {
 function GameCard({ game, index }: { game: GameRow; index: number }) {
   const [hovered, setHovered] = useState(false);
   const { label: statusLabel, color: statusColor } = getPlayStatus(game.loveRank);
+  const slug = toSlug(game.name, game.platform);
 
   return (
+    <Link href={`/games/${slug}`} style={{ textDecoration: "none" }}>
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "#1c1c1f" : "var(--surface)",
+        background: hovered ? "var(--border)" : "var(--surface)",
         borderBottom: "1px solid var(--border)",
         padding: "3rem 3.5rem",
         display: "grid",
@@ -275,6 +279,7 @@ function GameCard({ game, index }: { game: GameRow; index: number }) {
         )}
       </div>
     </div>
+    </Link>
   );
 }
 
