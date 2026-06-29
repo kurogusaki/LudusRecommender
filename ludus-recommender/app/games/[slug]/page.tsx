@@ -44,7 +44,7 @@ function StatBlock({ label, value, color }: {
       gap: "0.4rem",
     }}>
       <span style={{
-        fontFamily: "var(--font-jersey25)",
+        fontFamily: "var(--font-ui), sans-serif",
         fontSize: "0.65rem",
         letterSpacing: "0.15em",
         textTransform: "uppercase",
@@ -53,7 +53,7 @@ function StatBlock({ label, value, color }: {
         {label}
       </span>
       <span style={{
-        fontFamily: "var(--font-jersey25)",
+        fontFamily: "var(--font-ui), sans-serif",
         fontSize: "1.5rem",
         color: color ?? "var(--text)",
         lineHeight: 1,
@@ -95,7 +95,7 @@ export default async function GameDetailPage({
       {/* ── Header ─────────────────────────────────────────── */}
       <section>
         <p style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.75rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -105,7 +105,7 @@ export default async function GameDetailPage({
           {game.platform ?? "Unknown Platform"} · {game.year ?? game.date ?? "Unknown Year"}
         </p>
         <h1 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "clamp(2rem, 5vw, 4rem)",
           color: "var(--text)",
           letterSpacing: "0.03em",
@@ -119,7 +119,7 @@ export default async function GameDetailPage({
         {game.loveRank && (
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <span style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "2.5rem",
               color: loveColor,
               textShadow: `0 0 20px ${loveColor}66`,
@@ -127,7 +127,7 @@ export default async function GameDetailPage({
               {game.loveRank}
             </span>
             <span style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "1rem",
               color: loveColor,
               letterSpacing: "0.1em",
@@ -150,7 +150,7 @@ export default async function GameDetailPage({
           gap: "0.75rem",
         }}>
           <span style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "0.65rem",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
@@ -165,7 +165,7 @@ export default async function GameDetailPage({
       {/* ── Score breakdown ────────────────────────────────── */}
       <section>
         <h2 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.75rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -201,7 +201,7 @@ export default async function GameDetailPage({
       {/* ── Meta ───────────────────────────────────────────── */}
       <section>
         <h2 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.75rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",

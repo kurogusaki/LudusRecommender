@@ -7,7 +7,7 @@ interface BadgeProps {
 export default function Badge({ label, color, borderColor }: BadgeProps) {
   return (
     <span style={{
-      fontFamily: "var(--font-jersey25)",
+      fontFamily: "var(--font-ui), sans-serif",
       fontSize: "0.72rem",
       letterSpacing: "0.12em",
       textTransform: "uppercase",

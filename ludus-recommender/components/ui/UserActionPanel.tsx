@@ -19,7 +19,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
     >
       <p
         style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.7rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -33,7 +33,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <button
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.9rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -49,7 +49,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
           </button>
           <button
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.9rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -76,7 +76,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
           >
             <div
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "0.9rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -91,7 +91,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
             </div>
             <div
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "0.9rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -108,7 +108,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
           </div>
           <p
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.75rem",
               color: "var(--muted)",
               letterSpacing: "0.08em",

@@ -17,7 +17,7 @@ export default function PageHeader({ eyebrow, title, subtitle, right }: PageHead
       <div>
         {eyebrow && (
           <p style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
@@ -28,7 +28,7 @@ export default function PageHeader({ eyebrow, title, subtitle, right }: PageHead
           </p>
         )}
         <h1 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "clamp(2rem, 5vw, 3.5rem)",
           color: "var(--text)",
           letterSpacing: "0.05em",
@@ -38,7 +38,7 @@ export default function PageHeader({ eyebrow, title, subtitle, right }: PageHead
         </h1>
         {subtitle && (
           <p style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "1rem",
             color: "var(--muted)",
             marginTop: "0.5rem",

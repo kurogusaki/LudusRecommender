@@ -12,7 +12,7 @@ export default function CTAButton({ href, label }: CTAButtonProps) {
       <style>{`
         .cta-button {
           display: inline-block;
-          font-family: var(--font-jersey25);
+          font-family: var(--font-ui), sans-serif;
           font-size: 1rem;
           letter-spacing: 0.15em;
           text-transform: uppercase;

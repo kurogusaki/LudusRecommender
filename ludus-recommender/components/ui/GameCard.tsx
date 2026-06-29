@@ -36,7 +36,7 @@ function RankBadge({ rank, label }: { rank: string | null; label: string }) {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.2rem" }}>
       <span
         style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "1.5rem",
           color,
           lineHeight: 1,
@@ -47,7 +47,7 @@ function RankBadge({ rank, label }: { rank: string | null; label: string }) {
       </span>
       <span
         style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.6rem",
           color: "var(--muted)",
           letterSpacing: "0.1em",
@@ -104,7 +104,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
       {/* Index */}
       <span
         style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.8rem",
           color: "var(--border)",
           letterSpacing: "0.05em",
@@ -119,7 +119,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
       <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
         <span
           style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "2rem",
             color: "var(--text)",
             letterSpacing: "0.03em",
@@ -131,7 +131,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
           {game.platform && <Badge label={game.platform} />}
           <span
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.72rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -143,7 +143,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
           {game.year && (
             <span
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "0.72rem",
                 color: "var(--muted)",
                 letterSpacing: "0.08em",
@@ -164,7 +164,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.2rem" }}>
             <span
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "1.25rem",
                 color: "var(--accent)",
                 lineHeight: 1,
@@ -174,7 +174,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
             </span>
             <span
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "0.6rem",
                 color: "var(--muted)",
                 letterSpacing: "0.1em",

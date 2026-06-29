@@ -26,7 +26,7 @@ export default function LoadingState({ message = "Loading..." }: LoadingStatePro
         }
       `}</style>
       <span style={{
-        fontFamily: "var(--font-jersey25)",
+        fontFamily: "var(--font-ui), sans-serif",
         fontSize: "0.85rem",
         letterSpacing: "0.15em",
         textTransform: "uppercase",

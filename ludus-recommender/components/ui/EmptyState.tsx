@@ -39,7 +39,7 @@ export default function EmptyState({
       </div>
       <div style={{ textAlign: "center" }}>
         <p style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "1.25rem",
           color: "var(--text)",
           letterSpacing: "0.1em",
@@ -48,7 +48,7 @@ export default function EmptyState({
           {title}
         </p>
         <p style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.9rem",
           color: "var(--muted)",
           maxWidth: "28rem",

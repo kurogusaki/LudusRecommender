@@ -1,23 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e0e0f;
-  --surface:    #161618;
-  --border:     #2a2a2e;
-  --accent:       #d7263d;
-  --accent-light: #861f29;
-  --text:       #e8e6e1;
-  --muted:      #7a7870;
+  --background:   #000000;
+  --surface:      #1A1718;
+  --border:       #343033;
+  --accent:       #D7263D;
+  --accent-light: #F4606C;
+  --text:         #F2F2F2;
+  --muted:        #9A9497;
+  --font-logo: var(--font-monoton), sans-serif;
+  --font-ui: var(--font-orbitron), sans-serif;
 }
 
 :root[data-theme="light"] {
-  --background: #f5f2ee;
-  --surface:    #ffffff;
-  --border:     #ddd9d3;
-  --accent:       #d7263d;
-  --accent-light: #861f29;
-  --text:       #1a1a1b;
-  --muted:      #6b6760;
+  --background:   #F8F6F6;
+  --surface:      #FFFFFF;
+  --border:       #DDD8DA;
+  --accent:       #B71C2B;
+  --accent-light: #D7263D;
+  --text:         #1C1A1B;
+  --muted:        #6E676A;
+  --font-logo: var(--font-monoton), sans-serif;
+  --font-ui: var(--font-orbitron), sans-serif;
 }
 
 * {
@@ -29,13 +33,13 @@
 body {
   background-color: var(--background);
   color: var(--text);
-  font-family: var(--font-jersey25), sans-serif;
+  font-family: var(--font-ui), sans-serif;
   font-size: 1.1rem;
   line-height: 1.7;
   transition: background-color 0.2s, color 0.2s;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-jersey25), sans-serif;
+  font-family: var(--font-ui), sans-serif;
   letter-spacing: 0.05em;
 }

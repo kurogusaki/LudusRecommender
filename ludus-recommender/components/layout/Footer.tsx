@@ -19,7 +19,7 @@ export default function Footer() {
       }}>
         {/* Title */}
         <span style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-logo), sans-serif",
           fontSize: "1rem",
           letterSpacing: "0.15em",
           textTransform: "uppercase",
@@ -30,7 +30,7 @@ export default function Footer() {
 
         {/* Tagline */}
         <span style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.9rem",
           color: "var(--muted)",
           fontStyle: "italic",
@@ -60,7 +60,7 @@ export default function Footer() {
                 }} />
               )}
               <Link href={href} style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-logo), sans-serif",
                 fontSize: "0.85rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -79,7 +79,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <span style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.8rem",
           color: "var(--border)",
           marginTop: "0.5rem",

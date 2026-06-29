@@ -37,7 +37,7 @@ export default function Header() {
       }}>
         {/* Logo */}
         <Link href="/" style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-logo), sans-serif",
           fontSize: "1.5rem",
           fontWeight: 400,
           color: "var(--accent)",
@@ -53,7 +53,7 @@ export default function Header() {
           {/* Main links */}
           {navLinks.map(({ href, label }) => (
             <Link key={href} href={href} style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "1rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -84,7 +84,7 @@ export default function Header() {
           {/* Auth links */}
           {authLinks.map(({ href, label }) => (
             <Link key={href} href={href} style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "1rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",

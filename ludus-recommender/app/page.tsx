@@ -26,7 +26,7 @@ export default async function Home() {
       {/* ── Hero ─────────────────────────────────────────── */}
       <section style={{ maxWidth: "48rem" }}>
         <p style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "0.85rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -36,7 +36,7 @@ export default async function Home() {
           Personal Game Tracker
         </p>
         <h1 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "clamp(2.5rem, 6vw, 5rem)",
           color: "var(--text)",
           letterSpacing: "0.05em",
@@ -48,7 +48,7 @@ export default async function Home() {
           Your Picks.
         </h1>
         <p style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "1.1rem",
           color: "var(--muted)",
           marginBottom: "2rem",
@@ -91,7 +91,7 @@ export default async function Home() {
             gap: "0.5rem",
           }}>
             <span style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.75rem",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -100,7 +100,7 @@ export default async function Home() {
               {label}
             </span>
             <span style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "2rem",
               color: "var(--accent)",
             }}>
@@ -113,7 +113,7 @@ export default async function Home() {
       {/* ── Recently Added ───────────────────────────────── */}
       <section>
         <h2 style={{
-          fontFamily: "var(--font-jersey25)",
+          fontFamily: "var(--font-ui), sans-serif",
           fontSize: "1rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -141,14 +141,14 @@ export default async function Home() {
             }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                 <span style={{
-                  fontFamily: "var(--font-jersey25)",
+                  fontFamily: "var(--font-ui), sans-serif",
                   fontSize: "1.1rem",
                   color: "var(--text)",
                 }}>
                   {game.name}
                 </span>
                 <span style={{
-                  fontFamily: "var(--font-jersey25)",
+                  fontFamily: "var(--font-ui), sans-serif",
                   fontSize: "0.8rem",
                   color: "var(--muted)",
                   letterSpacing: "0.1em",
@@ -161,7 +161,7 @@ export default async function Home() {
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
                 {game.loveRank && (
                   <span style={{
-                    fontFamily: "var(--font-jersey25)",
+                    fontFamily: "var(--font-ui), sans-serif",
                     fontSize: "1.25rem",
                     color: "var(--accent)",
                   }}>
@@ -170,7 +170,7 @@ export default async function Home() {
                 )}
                 {game.total != null && (
                   <span style={{
-                    fontFamily: "var(--font-jersey25)",
+                    fontFamily: "var(--font-ui), sans-serif",
                     fontSize: "0.85rem",
                     color: "var(--muted)",
                     letterSpacing: "0.1em",

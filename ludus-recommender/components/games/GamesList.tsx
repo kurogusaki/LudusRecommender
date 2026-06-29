@@ -49,7 +49,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
           gap: "0.15rem",
         }}>
           <span style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "2rem",
             color: "var(--accent)",
             lineHeight: 1,
@@ -57,7 +57,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
             {games.length}
           </span>
           <span style={{
-            fontFamily: "var(--font-jersey25)",
+            fontFamily: "var(--font-ui), sans-serif",
             fontSize: "0.65rem",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
@@ -84,7 +84,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
         >
           <span
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.65rem",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -97,7 +97,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
             <span
               key={rank}
               style={{
-                fontFamily: "var(--font-jersey25)",
+                fontFamily: "var(--font-ui), sans-serif",
                 fontSize: "0.75rem",
                 color,
                 letterSpacing: "0.1em",
@@ -116,7 +116,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
           />
           <span
             style={{
-              fontFamily: "var(--font-jersey25)",
+              fontFamily: "var(--font-ui), sans-serif",
               fontSize: "0.65rem",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
