@@ -38,7 +38,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               color: "var(--background)",
-              background: "var(--gold)",
+              background: "var(--accent)",
               border: "none",
               padding: "0.75rem 1.5rem",
               cursor: "pointer",
@@ -53,9 +53,9 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
               fontSize: "0.9rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "var(--gold)",
+              color: "var(--accent)",
               background: "transparent",
-              border: "1px solid var(--gold)",
+              border: "1px solid var(--accent)",
               padding: "0.75rem 1.5rem",
               cursor: "pointer",
               width: "100%",
@@ -81,7 +81,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 color: "var(--background)",
-                background: "var(--gold)",
+                background: "var(--accent)",
                 padding: "0.75rem 1.5rem",
                 flex: 1,
                 textAlign: "center",
@@ -95,9 +95,9 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
                 fontSize: "0.9rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "var(--gold)",
+                color: "var(--accent)",
                 background: "transparent",
-                border: "1px solid var(--gold)",
+                border: "1px solid var(--accent)",
                 padding: "0.75rem 1.5rem",
                 flex: 1,
                 textAlign: "center",
@@ -114,7 +114,7 @@ export default function UserActionPanel({ gameName }: UserActionPanelProps) {
               letterSpacing: "0.08em",
             }}
           >
-            <a href="/login" style={{ color: "var(--gold)", textDecoration: "none" }}>
+            <a href="/login" style={{ color: "var(--accent)", textDecoration: "none" }}>
               Log in
             </a>{" "}
             to track {gameName} in your library

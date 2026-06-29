@@ -40,7 +40,7 @@ export default function Header() {
           fontFamily: "var(--font-jersey25)",
           fontSize: "1.5rem",
           fontWeight: 400,
-          color: "var(--gold)",
+          color: "var(--accent)",
           textDecoration: "none",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -59,12 +59,12 @@ export default function Header() {
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "color 0.2s",
-              color: isActive(href) ? "var(--gold)" : "var(--muted)",
-              borderBottom: isActive(href) ? "2px solid var(--gold)" : "2px solid transparent",
+              color: isActive(href) ? "var(--accent)" : "var(--muted)",
+              borderBottom: isActive(href) ? "2px solid var(--accent)" : "2px solid transparent",
               paddingBottom: "2px",
             }}
             onMouseEnter={e => {
-              if (!isActive(href)) e.currentTarget.style.color = "var(--gold-light)";
+              if (!isActive(href)) e.currentTarget.style.color = "var(--accent-light)";
             }}
             onMouseLeave={e => {
               if (!isActive(href)) e.currentTarget.style.color = "var(--muted)";
@@ -90,12 +90,12 @@ export default function Header() {
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "color 0.2s",
-              color: isActive(href) ? "var(--gold)" : "var(--muted)",
-              borderBottom: isActive(href) ? "2px solid var(--gold)" : "2px solid transparent",
+              color: isActive(href) ? "var(--accent)" : "var(--muted)",
+              borderBottom: isActive(href) ? "2px solid var(--accent)" : "2px solid transparent",
               paddingBottom: "2px",
             }}
             onMouseEnter={e => {
-              if (!isActive(href)) e.currentTarget.style.color = "var(--gold-light)";
+              if (!isActive(href)) e.currentTarget.style.color = "var(--accent-light)";
             }}
             onMouseLeave={e => {
               if (!isActive(href)) e.currentTarget.style.color = "var(--muted)";

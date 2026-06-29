@@ -40,8 +40,8 @@ export default function ThemeToggle() {
         transition: "color 0.2s, border-color 0.2s",
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.color = "var(--gold)";
-        e.currentTarget.style.borderColor = "var(--gold)";
+        e.currentTarget.style.color = "var(--accent)";
+        e.currentTarget.style.borderColor = "var(--accent)";
       }}
       onMouseLeave={e => {
         e.currentTarget.style.color = "var(--muted)";

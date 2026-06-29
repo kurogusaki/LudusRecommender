@@ -51,7 +51,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
           <span style={{
             fontFamily: "var(--font-jersey25)",
             fontSize: "2rem",
-            color: "var(--gold)",
+            color: "var(--accent)",
             lineHeight: 1,
           }}>
             {games.length}

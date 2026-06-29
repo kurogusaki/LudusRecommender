@@ -16,7 +16,7 @@ export default function LoadingState({ message = "Loading..." }: LoadingStatePro
         width: "40px",
         height: "40px",
         border: "2px solid var(--border)",
-        borderTop: "2px solid var(--gold)",
+        borderTop: "2px solid var(--accent)",
         borderRadius: "50%",
         animation: "spin 0.8s linear infinite",
       }} />

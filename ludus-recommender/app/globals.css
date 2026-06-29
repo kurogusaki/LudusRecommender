@@ -4,8 +4,8 @@
   --background: #0e0e0f;
   --surface:    #161618;
   --border:     #2a2a2e;
-  --gold:       #c9a84c;
-  --gold-light: #e2c97e;
+  --accent:       #d7263d;
+  --accent-light: #861f29;
   --text:       #e8e6e1;
   --muted:      #7a7870;
 }
@@ -14,8 +14,8 @@
   --background: #f5f2ee;
   --surface:    #ffffff;
   --border:     #ddd9d3;
-  --gold:       #9a7a2e;
-  --gold-light: #b8952e;
+  --accent:       #d7263d;
+  --accent-light: #861f29;
   --text:       #1a1a1b;
   --muted:      #6b6760;
 }

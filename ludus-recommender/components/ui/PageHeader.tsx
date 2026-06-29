@@ -21,7 +21,7 @@ export default function PageHeader({ eyebrow, title, subtitle, right }: PageHead
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "var(--gold)",
+            color: "var(--accent)",
             marginBottom: "0.5rem",
           }}>
             {eyebrow}

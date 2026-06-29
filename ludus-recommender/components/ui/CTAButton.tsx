@@ -17,13 +17,13 @@ export default function CTAButton({ href, label }: CTAButtonProps) {
           letter-spacing: 0.15em;
           text-transform: uppercase;
           color: var(--background);
-          background: var(--gold);
+          background: var(--accent);
           padding: 0.85rem 2.5rem;
           text-decoration: none;
           transition: background 0.2s;
         }
         .cta-button:hover {
-          background: var(--gold-light);
+          background: var(--accent-light);
         }
       `}</style>
       <Link href={href} className="cta-button">

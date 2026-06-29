@@ -10,7 +10,7 @@ import Badge from "@/components/ui/Badge";
 function getPlayStatus(loveRank: string | null): { label: string; color: string } {
   if (!loveRank) return { label: "Unrated", color: "var(--muted)" };
   if (loveRank === "S" || loveRank === "A") return { label: "Loved", color: "#7ec8a4" };
-  if (loveRank === "B") return { label: "Enjoyed", color: "var(--gold)" };
+  if (loveRank === "B") return { label: "Enjoyed", color: "var(--accent)" };
   if (loveRank === "C") return { label: "Mixed", color: "#7aaedc" };
   return { label: "Disliked", color: "#dc7a7a" };
 }
@@ -87,7 +87,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
 
   return (
     <Link href={`/games/${slug}`} style={{ textDecoration: "none" }}>
-    <div
+    <article
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -166,7 +166,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
               style={{
                 fontFamily: "var(--font-jersey25)",
                 fontSize: "1.25rem",
-                color: "var(--gold)",
+                color: "var(--accent)",
                 lineHeight: 1,
               }}
             >
@@ -186,7 +186,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
           </div>
         )}
       </div>
-    </div>
+    </article>
     </Link>
   );
 }

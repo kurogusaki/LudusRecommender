@@ -30,7 +30,7 @@ export default async function Home() {
           fontSize: "0.85rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
-          color: "var(--gold)",
+          color: "var(--accent)",
           marginBottom: "1rem",
         }}>
           Personal Game Tracker
@@ -44,7 +44,7 @@ export default async function Home() {
           marginBottom: "1.5rem",
         }}>
           Your Games.<br />
-          <span style={{ color: "var(--gold)" }}>Your Stats.</span><br />
+          <span style={{ color: "var(--accent)" }}>Your Stats.</span><br />
           Your Picks.
         </h1>
         <p style={{
@@ -102,7 +102,7 @@ export default async function Home() {
             <span style={{
               fontFamily: "var(--font-jersey25)",
               fontSize: "2rem",
-              color: "var(--gold)",
+              color: "var(--accent)",
             }}>
               {value}
             </span>
@@ -163,7 +163,7 @@ export default async function Home() {
                   <span style={{
                     fontFamily: "var(--font-jersey25)",
                     fontSize: "1.25rem",
-                    color: "var(--gold)",
+                    color: "var(--accent)",
                   }}>
                     {game.loveRank}
                   </span>

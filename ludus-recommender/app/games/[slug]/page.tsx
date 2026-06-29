@@ -183,12 +183,12 @@ export default async function GameDetailPage({
           background: "var(--border)",
           border: "1px solid var(--border)",
         }}>
-          <StatBlock label="Love" value={game.love} color="var(--gold)" />
+          <StatBlock label="Love" value={game.love} color="var(--accent)" />
           <StatBlock label="Difficulty" value={game.difficulty} color={diffColor} />
           <StatBlock label="Pride" value={game.pride} />
           <StatBlock label="Achievement" value={game.achievement} />
           <StatBlock label="List" value={game.list} />
-          <StatBlock label="Total" value={game.total?.toFixed(2)} color="var(--gold)" />
+          <StatBlock label="Total" value={game.total?.toFixed(2)} color="var(--accent)" />
         </div>
       </section>
 

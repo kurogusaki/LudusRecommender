@@ -23,7 +23,7 @@ export default function Footer() {
           fontSize: "1rem",
           letterSpacing: "0.15em",
           textTransform: "uppercase",
-          color: "var(--gold)",
+          color: "var(--accent)",
         }}>
           Ludus Recommender
         </span>
@@ -68,7 +68,7 @@ export default function Footer() {
                 textDecoration: "none",
                 transition: "color 0.2s",
               }}
-              onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
               onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
               >
                 {label}
