@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { toSlug } from "@/lib/slug";
 import { GameRow } from "@/components/games/GamesList";
+import Badge from "@/components/ui/Badge";
 
 // ─── Helpers ──────────────────────────────────────────────────
 
@@ -127,21 +128,7 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
           {game.name}
         </span>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-          {game.platform && (
-            <span
-              style={{
-                fontFamily: "var(--font-jersey25)",
-                fontSize: "0.72rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                border: "1px solid var(--border)",
-                padding: "0.15rem 0.5rem",
-              }}
-            >
-              {game.platform}
-            </span>
-          )}
+          {game.platform && <Badge label={game.platform} />}
           <span
             style={{
               fontFamily: "var(--font-jersey25)",

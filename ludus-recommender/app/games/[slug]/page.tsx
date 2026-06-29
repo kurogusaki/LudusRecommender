@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import { fromSlug } from "@/lib/slug";
 import { notFound } from "next/navigation";
+import UserActionPanel from "@/components//ui/UserActionPanel";
+import { isLoggedIn } from "@/lib/auth-placeholder";
 
 const RANK_COLORS: Record<string, string> = {
   S: "#f0c040", A: "#c9a84c", B: "#7ec8a4",
@@ -189,6 +191,12 @@ export default async function GameDetailPage({
           <StatBlock label="Total" value={game.total?.toFixed(2)} color="var(--gold)" />
         </div>
       </section>
+
+{/* ── User Actions (Sprint 9 Placeholder) ───────────────── */}
+{/* Authentication will determine visibility in Sprint 9 */}
+
+{isLoggedIn && <UserActionPanel gameName={game!.name} />}
+
 
       {/* ── Meta ───────────────────────────────────────────── */}
       <section>
