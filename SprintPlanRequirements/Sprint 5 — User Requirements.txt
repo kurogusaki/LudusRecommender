@@ -1,0 +1,50 @@
+Sprint 5 — User Requirements
+Recommendation Engine
+Context: What This Sprint Is About
+Sprint 5 is the core intellectual feature of the platform — a personalized recommendation engine. Based on the Gamer's ratings, enjoyment scores, genres, tags, and difficulty preferences, the system surfaces games the User is likely to enjoy. This sprint also includes a "similar games" feature on individual game detail pages.
+
+Role Relevance This Sprint
+Guest — Can view recommendations on a public recommendations page but they will be general (based on overall top-rated games) rather than personalized, since there is no profile to draw from.
+User (Registered) — Will eventually receive personalized recommendations based on their own saved library and preferences. For now this is a placeholder — the engine logic can be built and shown generally, with personalization deferred to Sprint 9 when auth is in place.
+Admin — No specific role this sprint beyond being able to see the same output as everyone else.
+Gamer — Their scoring data (rating, enjoyment, difficulty, genre, tags) is the direct input to the recommendation algorithm. Data quality matters enormously here.
+
+Functional Requirements
+FR-01 — Recommendations Page
+The system shall have a dedicated Recommendations page that displays a curated list of recommended games, replacing the placeholder from Sprint 3.
+FR-02 — General Recommendation Logic
+The system shall implement a weighted scoring algorithm that combines the following signals to produce a recommendation score for each game:
+
+Rating — The Gamer's overall numeric rating
+Enjoyment — Separate enjoyment score weighted independently from rating
+Genre preference — Games in highly-rated genres rank higher
+Difficulty preference — Games matching a preferred difficulty tier rank higher
+Tag similarity — Games sharing tags with highly-rated games rank higher
+
+The weighting of each signal shall be configurable (even if just as constants in a config file) so they can be tuned without changing core logic.
+FR-03 — Similar Games Feature
+Each Game Detail page shall display a "You Might Also Like" or "Similar Games" section showing 3–5 games that share genre, tags, or difficulty with the current game, ordered by their recommendation score.
+FR-04 — Recommendation Explanation
+Each recommended game shall include a brief human-readable reason for why it was recommended (e.g. "Because you enjoyed RPGs" or "Similar difficulty to games you rated highly"). This does not need to be AI-generated — simple template strings based on the matched signal are sufficient.
+FR-05 — Top Picks Section
+The Recommendations page shall include a "Top Picks" section highlighting the highest overall scoring games across all signals.
+FR-06 — Genre-Based Recommendations
+The Recommendations page shall include a section that groups recommendations by genre, showing the top-rated game per genre as a starting point.
+
+Non-Functional Requirements
+NFR-01 — Algorithm Separation
+The recommendation scoring logic shall live in its own dedicated module, completely separate from API routes and UI components. This makes it independently testable and replaceable.
+NFR-02 — No Hardcoded Preferences
+The algorithm shall derive all preferences from the actual data in the database. No genre, tag, or difficulty value shall be hardcoded as "preferred" in the logic.
+NFR-03 — Graceful Empty State
+If there is insufficient data to generate meaningful recommendations (e.g. fewer than 5 games in the database), the system shall display a helpful message rather than broken or misleading results.
+
+Acceptance Criteria
+
+The Recommendations page is live and displays a ranked list of games
+The weighted algorithm uses at least rating, enjoyment, genre, and tag signals
+Similar games appear on each Game Detail page
+Each recommendation includes a reason string
+The algorithm logic is in its own module
+Adjusting weights in the config changes the output without touching other code
+Empty and low-data states are handled gracefully

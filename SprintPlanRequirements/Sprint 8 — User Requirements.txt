@@ -1,0 +1,55 @@
+Sprint 8 — User Requirements
+Testing & Deployment
+Context: What This Sprint Is About
+Sprint 8 prepares the application for production. This means systematic testing, bug fixing, environment configuration for deployment, and getting the app live and accessible via a public URL.
+
+Role Relevance This Sprint
+All roles — All role-specific flows should be tested end-to-end where possible. Guest browsing, Admin sync triggering, and the data pipeline should all be verified.
+
+Functional Requirements
+FR-01 — End-to-End Flow Testing
+The following user flows shall be manually tested and verified:
+
+Guest lands on home page and navigates to the games library
+Guest opens a game detail page
+Guest uses search and filters
+Guest views the recommendations page
+Guest views the analytics dashboard
+Admin triggers a sync and verifies data updates in the database
+Export functionality produces a valid file
+
+FR-02 — Edge Case Testing
+The following edge cases shall be explicitly tested:
+
+Google Sheets API is unavailable — does the app handle it gracefully?
+Database is empty — do all pages show correct empty states?
+A game has many null fields — does the detail page render without crashing?
+A search returns zero results — is the empty state shown?
+A filter combination returns zero results — is the empty state shown?
+
+FR-03 — Production Environment Configuration
+The system shall be configured for deployment with:
+
+Production environment variables set securely (not in code)
+Database configured for the deployment environment
+No development-only code or debug logging present in production builds
+
+FR-04 — Deployment
+The application shall be deployed to a publicly accessible URL. Vercel is the recommended platform for Next.js projects. The deployed application shall function identically to the local development version.
+FR-05 — Documentation Update
+The README shall be updated to reflect the final project state including: what the app does, how to run it locally, required environment variables, and how to trigger a data sync.
+
+Non-Functional Requirements
+NFR-01 — No Console Errors in Production
+The deployed application shall produce no unhandled JavaScript errors in the browser console during normal use.
+NFR-02 — Environment Separation
+Development and production environments shall be fully separated. The production database shall not be the same file as the local development database.
+
+Acceptance Criteria
+
+All listed user flows pass manual testing without errors
+All listed edge cases are handled gracefully
+The application is deployed and accessible via a public URL
+Environment variables are configured securely in the deployment platform
+The README accurately documents the project
+No unhandled errors appear in the browser console during normal use

@@ -1,0 +1,120 @@
+Sprint 3 — User Requirements
+Context: What This Sprint Is About
+Sprint 3 is where the project becomes something you can actually see and navigate. The goal is to build the core UI — the layout, navigation, games listing page, game detail page, and dark mode — using the data that now lives in your SQLite database from Sprint 2. This sprint is about structure and presentation, not logic. Search, filtering, and recommendations come later. Focus on getting a clean, navigable, responsive interface in place.
+
+Role Relevance This Sprint
+Guest — The primary audience this sprint. A Guest landing on the page should be able to browse the games list and view individual game pages without needing an account. Everything built here should be publicly accessible by default.
+User (Registered) — Will eventually see additional UI elements (e.g. "Add to my list", personal notes). For now, design the layout with placeholder space for those features so you don't have to restructure later. Don't build the functionality yet.
+Admin — Should see the same public UI as everyone else this sprint. Admin-specific UI (e.g. sync controls, management panels) comes in a later sprint.
+Gamer — Not directly interacting with the UI, but their data is what gets displayed. The UI should handle edge cases in their data gracefully — missing images, long titles, null fields, etc.
+
+Functional Requirements
+FR-01 — Application Layout
+The system shall have a persistent global layout that wraps all pages, containing:
+
+A header with the application name/logo and primary navigation links
+A main content area where page content renders
+A footer with basic project information
+
+The layout shall be consistent across all pages and responsive across desktop, tablet, and mobile screen sizes.
+FR-02 — Navigation System
+The header navigation shall include links to the following destinations at minimum:
+
+Home / Landing page
+Games Library (the full list of games)
+Analytics (placeholder page for now — built in Sprint 6)
+Login / Sign Up (placeholder links for now — built in Sprint 9)
+
+Active navigation links shall be visually distinguished from inactive ones.
+FR-03 — Home / Landing Page
+The system shall have a home page that:
+
+Communicates the purpose of the platform clearly to a first-time Guest
+Displays a brief summary or highlight (e.g. total games tracked, recently added games, or a featured game)
+Includes a clear call-to-action directing the user toward the Games Library
+
+FR-04 — Games Library Page
+The system shall have a games listing page that:
+
+Fetches and displays all games stored in the database
+Shows each game as a card or list item containing: title, genre(s), rating, play status, and difficulty
+Displays a meaningful empty state if no games are found
+Is accessible to Guest, User, and Admin roles
+
+At this stage, no filtering or search is needed — that is Sprint 4. The page simply needs to render all games cleanly.
+FR-05 — Game Detail Page
+The system shall have a dynamic page for each individual game, accessible via a unique URL (e.g. /games/[slug] or /games/[id]). This page shall display:
+
+Title
+Genre(s) and Tags
+Platform
+Play Status
+Rating and Enjoyment score
+Difficulty
+Hours Played
+Personal Notes / Review
+Date Added
+
+All fields shall render gracefully when data is missing — show a placeholder or omit the field cleanly rather than showing null or crashing.
+FR-06 — Dark Mode
+The system shall support a dark mode toggle that:
+
+Is accessible from the header or a consistent UI location on every page
+Persists the user's preference across page refreshes (using local storage is acceptable at this stage)
+Applies consistently across all UI components — no components should be left unstyled in either mode
+
+FR-07 — Reusable Component Library
+The system shall establish a set of reusable UI components to be used consistently throughout the application. At minimum, this should include:
+
+GameCard — Used on the library page to represent a single game
+Badge — For displaying genres, tags, status labels, and difficulty
+PageHeader — Reusable section header with title and optional subtitle
+EmptyState — Shown when a list or page has no data to display
+LoadingState — Shown while data is being fetched
+
+These components should be built generically enough to be reused in future sprints without modification.
+FR-08 — Role-Aware UI Placeholders
+The system shall include placeholder UI elements that will activate in future sprints based on role:
+
+On the Game Detail page, include a visually present but disabled or hidden "Add to Library" / "Write a Review" section — visible only when a User is logged in (stub it out now, wire it up in Sprint 9)
+In the header, the Login / Sign Up links should be present but can point to a placeholder page for now
+
+This avoids having to restructure page layouts in later sprints.
+
+Non-Functional Requirements
+NFR-01 — Responsiveness
+All pages shall be usable on screen widths ranging from 375px (mobile) to 1440px (desktop). No content shall be cut off or overflow horizontally on any supported screen size.
+NFR-02 — Consistent Visual Language
+All pages shall use the same color palette, typography scale, spacing system, and component styles. Avoid one-off styles — if something is styled uniquely on one page, extract it into a reusable component or Tailwind utility class.
+NFR-03 — Performance Baseline
+Pages shall not make unnecessary API calls on load. The Games Library page should fetch data server-side where possible (Next.js allows this natively) so the page is populated on first render rather than showing a loading spinner every time.
+NFR-04 — Graceful Data Handling
+The UI shall never crash or display raw error text to the user. All data-dependent components shall handle null, undefined, and empty array cases explicitly.
+NFR-05 — Accessible Markup
+UI components shall use semantic HTML elements where appropriate (e.g. <nav>, <main>, <article>, <header>). Interactive elements shall be keyboard-navigable.
+
+Acceptance Criteria
+These must all be true before Sprint 3 is considered done:
+
+The application has a consistent layout with header, content area, and footer on every page
+Navigating between Home, Games Library, and a Game Detail page works without errors
+The Games Library page displays all games from the database as cards or list items
+Each game card links correctly to its own detail page
+The Game Detail page renders all available fields and handles null fields gracefully
+Dark mode toggles correctly and persists after a page refresh
+The UI is usable on both mobile and desktop screen sizes
+All reusable components (GameCard, Badge, EmptyState, LoadingState, PageHeader) exist and are used consistently
+No page crashes when data is missing or the database returns an empty result
+Placeholder elements exist for future login/auth and user-specific features
+
+
+Design Decisions to Make Before Building
+1. Card vs. Table Layout for the Games Library
+
+A card grid feels more visual and modern; a table is more information-dense and scannable. Consider which suits the Gamer's data better — if there are many fields, a table row might communicate more at a glance. You could also support both views.
+2. URL Structure for Game Detail Pages
+
+Decide now whether game detail pages use a slug (e.g. /games/the-witcher-3) or a numeric ID (e.g. /games/42). Slugs are more readable and user-friendly but require generating and storing them in the database. If you didn't add a slug field in Sprint 2, now is the time.
+3. Dark Mode Implementation Strategy
+
+Tailwind CSS has built-in dark mode support. Decide whether you're using the class strategy (toggled via a class on the <html> element, which gives you manual control) or the media strategy (follows the OS preference automatically). The class strategy is recommended since you want a manual toggle.

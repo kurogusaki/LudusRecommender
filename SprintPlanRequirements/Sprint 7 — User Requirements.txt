@@ -1,0 +1,41 @@
+Sprint 7 — User Requirements
+Export, Optimization & Polish
+Context: What This Sprint Is About
+Sprint 7 is about making everything that already exists work better, look more cohesive, and be more useful. This includes export functionality, performance improvements, UX consistency, and UI polish. No major new features — this sprint refines what's there.
+
+Role Relevance This Sprint
+Guest — Benefits from faster load times and a more consistent UI.
+User (Registered) — Will benefit most from export functionality when auth is live. Export can be built now and gated by role later.
+Admin — Benefits from better loading/error states when managing the application.
+Gamer — No direct impact, but cleaner UI reflects their data better.
+
+Functional Requirements
+FR-01 — Export Games List
+The system shall allow exporting the full games list (or current filtered view) as a CSV file. The export shall include all game fields visible in the library.
+FR-02 — Export Single Game
+The Game Detail page shall include an option to export that game's data as a JSON or CSV file.
+FR-03 — Loading States
+Every data-dependent page and component shall have a proper loading state displayed while data is being fetched, replacing any blank or unstyled intermediate states.
+FR-04 — Error States
+Every data-dependent page and component shall have a graceful error state displayed if the data fetch fails, with a human-readable message and a retry option where appropriate.
+FR-05 — UI Consistency Audit
+All pages shall be reviewed and brought into full visual consistency — same spacing rhythm, same typography scale, same color usage, same component patterns. Any one-off styles found during this audit shall be extracted into reusable components or utility classes.
+FR-06 — Mobile UX Improvements
+All pages shall be reviewed specifically on mobile screen sizes. Any layout issues, overlapping elements, or touch target problems discovered shall be resolved.
+FR-07 — Performance Review
+Identify and resolve any unnecessary re-renders, redundant API calls, or unoptimized database queries introduced in previous sprints.
+
+Non-Functional Requirements
+NFR-01 — Export File Naming
+Exported files shall have meaningful names (e.g. ludus-games-export-2024-11-01.csv) rather than generic names like download.csv.
+NFR-02 — No Regressions
+All features built in Sprints 1–6 shall continue working after Sprint 7 changes. Polish work shall not break existing functionality.
+
+Acceptance Criteria
+
+CSV export of the games list works and produces a correctly formatted file
+Single game export works from the detail page
+Every page has a loading state and an error state
+No obvious visual inconsistencies remain across pages
+Mobile layout is reviewed and functional on 375px width
+No new bugs introduced by polish changes

@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -37,6 +38,7 @@ model Game {
   id             String   @id @default(cuid())
   number         Int?
   name           String
+  cover          String?
   date           String?
   platform       String?
 

@@ -1,0 +1,51 @@
+Sprint 6 — User Requirements
+Analytics & Visualization
+Context: What This Sprint Is About
+Sprint 6 builds the analytics dashboard — a visual summary of the Gamer's play history and scoring patterns. This sprint is largely read-only and presentational. It gives all roles an at-a-glance overview of the data.
+
+Role Relevance This Sprint
+Guest — Can view the analytics dashboard. All visualizations are based on the Gamer's public data.
+User (Registered) — Same as Guest for now. Personal analytics (e.g. "your library stats") are deferred to Sprint 9 when auth exists.
+Admin — Same as Guest. Could later have access to system-level analytics (sync frequency, error rates) but that is out of scope here.
+Gamer — Their data is what gets visualized. Consistency in how they fill in the sheet directly impacts how useful the charts are.
+
+Functional Requirements
+FR-01 — Analytics Dashboard Page
+The system shall have a dedicated Analytics page that replaces the Sprint 3 placeholder. It shall be organized into clearly labeled sections.
+FR-02 — Summary Statistics
+The dashboard shall display high-level summary statistics including:
+
+Total number of games tracked
+Total hours played across all games
+Average rating across all games
+Number of completed games vs. total
+Most played platform
+
+FR-03 — Genre Breakdown Chart
+The system shall display a chart showing the distribution of games across genres (e.g. a pie chart or bar chart).
+FR-04 — Rating Distribution Chart
+The system shall display a chart showing how ratings are distributed across the 0–10 scale (e.g. a histogram or bar chart showing how many games received each rating).
+FR-05 — Play Status Breakdown
+The system shall display a visual breakdown of games by play status (Completed, Playing, Dropped, Backlog).
+FR-06 — Difficulty Distribution
+The system shall display a chart showing how many games fall into each difficulty tier.
+FR-07 — Top Games Table
+The dashboard shall include a sortable table of top games ranked by total weighted score, showing title, genre, rating, and enjoyment at minimum.
+FR-08 — Hours Played Over Time
+If date data is available, the system shall display a timeline or chart showing when games were completed or added over time.
+
+Non-Functional Requirements
+NFR-01 — Chart Library
+Use a consistent charting library throughout (e.g. Recharts, Chart.js). Do not mix libraries across charts.
+NFR-02 — Responsive Charts
+All charts shall be responsive and render correctly on both mobile and desktop screen widths.
+NFR-03 — Data Accuracy
+All statistics displayed shall be derived directly from the database at request time. No values shall be hardcoded or approximated.
+
+Acceptance Criteria
+
+The Analytics page is live with at minimum 4 working charts
+Summary statistics are accurate and match the database
+All charts are responsive
+The top games table is present and displays correct data
+Empty states are handled if there is insufficient data for a chart

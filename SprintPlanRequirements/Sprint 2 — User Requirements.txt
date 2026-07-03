@@ -1,0 +1,91 @@
+Sprint 2 — User Requirements
+Context: What This Sprint Is About
+Sprint 2 is the data pipeline. The goal is to take whatever the Gamer has entered into the Google Sheet and get it reliably into your SQLite database in a structured, queryable format. Every feature in every future sprint depends on this data being clean, consistent, and well-modeled. Getting this right now saves enormous pain later.
+
+Role Relevance This Sprint
+Gamer — The indirect driver of this entire sprint. Their Google Sheet is the data source. The structure of what they input dictates your schema design.
+Admin — The only role that should be able to manually trigger a data sync from the Google Sheet to the database.
+User & Guest — Not directly involved this sprint, but the data model you build here will power everything they see later. Design with them in mind.
+
+Functional Requirements
+FR-01 — Google Sheets Data Fetching
+The system shall fetch game data from the configured Google Sheet via the Google Sheets API. The fetch shall retrieve all rows with game entries and ignore empty rows or header rows.
+FR-02 — Expected Google Sheet Schema
+The Google Sheet maintained by the Gamer shall contain the following columns at minimum. You should agree on and lock these down before building the pipeline:
+
+Title — Name of the game
+Genre — One or more genres (e.g. RPG, FPS, Strategy)
+Tags — Descriptive tags (e.g. open-world, co-op, story-rich)
+Platform — Where the game is played (e.g. PC, PS5, Switch)
+Status — Play status (e.g. Playing, Completed, Dropped, Backlog)
+Rating — Personal rating out of 10
+Enjoyment — Separate enjoyment score (can differ from rating)
+Difficulty — Perceived difficulty (e.g. Easy, Medium, Hard, or a numeric scale)
+Hours Played — Total time spent
+Notes / Review — Free text personal notes
+Date Added — When the entry was created or last updated
+
+
+Any column the Gamer doesn't fill in should be treated as optional/nullable — the system must handle missing fields gracefully without crashing.
+
+FR-03 — Data Validation & Transformation
+Before storing any data, the system shall validate and transform each row:
+
+Trim whitespace from all string fields
+Normalize genre and tag values to a consistent format (e.g. lowercase, comma-separated)
+Validate that rating and enjoyment values fall within the expected range — flag or skip rows that don't
+Convert hours played to a numeric type
+Handle missing optional fields by storing null rather than empty strings
+
+FR-04 — Database Schema Design
+The system shall implement a Prisma schema that models the game data cleanly. At minimum, the following models are expected:
+
+Game — Core game record with all fields from the sheet
+Genre — Normalized genre entries linked to games (consider a many-to-many relationship)
+Tag — Same as genre — normalized and relational
+SyncLog — A record of each time a sync was run, including timestamp, number of records processed, and success/failure status
+
+FR-05 — Data Import & Upsert Logic
+The system shall implement an import process that:
+
+Inserts new game records that don't yet exist in the database
+Updates existing records if the sheet data has changed (upsert by game title or a unique identifier)
+Does not duplicate records on repeated syncs
+Logs each sync run to the SyncLog model
+
+FR-06 — Manual Sync Trigger (Admin Only)
+The system shall expose an API route that, when called, triggers a full sync from the Google Sheet to the database. This route shall only be accessible to the Admin role. For now, this can be protected by a simple check (even a hardcoded secret in the header is acceptable as a placeholder until auth is built in Sprint 9).
+FR-07 — Sync Feedback
+After a sync is triggered, the API response shall return a summary including: how many records were processed, how many were newly inserted, how many were updated, and whether any rows were skipped due to validation failures.
+
+Non-Functional Requirements
+NFR-01 — Data Integrity
+The database shall never contain duplicate game entries as a result of running the sync multiple times. The upsert logic must be idempotent — running it 10 times should produce the same result as running it once.
+NFR-02 — Graceful Error Handling
+If the Google Sheets API is unreachable or returns an error, the system shall fail gracefully — logging the error and returning a meaningful message rather than crashing.
+NFR-03 — Schema Flexibility
+The database schema shall be designed to accommodate future fields (e.g. achievement tracking, AI tags) without requiring a full redesign. Avoid hardcoding assumptions that only work for the current column list.
+NFR-04 — Separation of Concerns
+The data fetching logic, validation/transformation logic, and database write logic shall each live in clearly separated files/modules. This makes each piece independently testable and easier to modify later.
+
+Acceptance Criteria
+These must all be true before Sprint 2 is considered done:
+
+The Google Sheet has a finalized, agreed-upon column structure that the Gamer will follow going forward
+Running the sync API route successfully imports all current sheet rows into SQLite
+Running the sync a second time does not create duplicate records
+Rows with missing optional fields are stored correctly with null values
+Rows with invalid data (e.g. rating out of range) are skipped and noted in the sync response
+The SyncLog table records each sync attempt with a timestamp and outcome
+The sync route returns a structured JSON summary of what happened
+All data transformation functions are in their own utility module, not mixed into the API route
+
+
+A Note on Schema Design Decisions
+Two decisions you should make consciously before writing any schema:
+1. Genre and Tags — Strings or Relational?
+
+Storing genres as a plain comma-separated string is simpler now but will make filtering and recommendation logic harder later. A relational approach (Genre table, many-to-many join) is more work upfront but pays off heavily in Sprints 4 and 5. Recommended to go relational.
+2. Game Identity / Unique Key
+
+What makes a game record unique? If the Gamer renames a game in the sheet, should that create a new record or update the old one? Decide on a stable unique identifier early — title alone is fragile. Consider a slug (URL-safe version of the title) or a manual ID column in the sheet.

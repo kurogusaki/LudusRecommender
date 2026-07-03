@@ -10,6 +10,7 @@ import GameCard from "@/components/ui/GameCard";
 export interface GameRow {
   id: string;
   name: string;
+  cover: string | null;
   platform: string | null;
   loveRank: string | null;
   difficultyRank: string | null;

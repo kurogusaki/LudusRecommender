@@ -4,6 +4,7 @@ import Link from "next/link";
 import { toSlug } from "@/lib/slug";
 import { GameRow } from "@/components/games/GamesList";
 import Badge from "@/components/ui/Badge";
+import Image from "next/image";
 
 // ─── Helpers ──────────────────────────────────────────────────
 
@@ -13,6 +14,14 @@ function getPlayStatus(loveRank: string | null): { label: string; color: string 
   if (loveRank === "B") return { label: "Enjoyed", color: "var(--accent)" };
   if (loveRank === "C") return { label: "Mixed", color: "#7aaedc" };
   return { label: "Disliked", color: "#dc7a7a" };
+}
+
+export function toKebabCase(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/['"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 // ─── Rank config ─────────────────────────────────────────────
@@ -95,25 +104,25 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
         borderBottom: "1px solid var(--border)",
         padding: "3rem 3.5rem",
         display: "grid",
-        gridTemplateColumns: "2.5rem 1fr auto",
+        gridTemplateColumns: "72px 1fr auto",
         gap: "1.25rem",
         alignItems: "center",
         transition: "background 0.15s",
       }}
     >
-      {/* Index */}
-      <span
-        style={{
-          fontFamily: "var(--font-ui), sans-serif",
-          fontSize: "0.8rem",
-          color: "var(--border)",
-          letterSpacing: "0.05em",
-          textAlign: "right",
-          userSelect: "none",
-        }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
+      {/* Game Cover */}
+      <Image
+      src={game.cover ?? "/covers/default.webp"}
+      alt={`${game.name} cover`}
+      width={72}
+      height={108}
+      style={{
+        borderRadius: "8px",
+        objectFit: "cover",
+        boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
+        flexShrink: 0,
+      }}
+      />
 
       {/* Main info */}
       <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>

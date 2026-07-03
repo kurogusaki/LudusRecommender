@@ -1,0 +1,71 @@
+Sprint 4 — User Requirements
+Search, Filtering & Sorting
+Context: What This Sprint Is About
+Sprint 4 transforms the Games Library from a static list into an interactive discovery tool. Users should be able to search for games, filter by various attributes, and sort results in meaningful ways. This sprint primarily serves Guest and User roles, as discovery is a public-facing feature.
+
+Role Relevance This Sprint
+Guest — Can search, filter, and sort the public games library freely without needing an account.
+User (Registered) — Same access as Guest for now. In future sprints, saved filters or personal library filtering may be added.
+Admin — Same access as Guest and User for public discovery. No admin-specific search features this sprint.
+Gamer — Their data quality directly impacts search and filter results. Tags, genres, and status fields must be consistently entered in the sheet for filtering to work well.
+
+Functional Requirements
+FR-01 — Text Search
+The system shall provide a search input on the Games Library page that:
+
+Filters the displayed games in real time or on submission
+Searches across game title, genre, and tags at minimum
+Is case-insensitive
+Displays an empty state when no results match the search term
+Clears results and returns to the full list when the search input is emptied
+
+FR-02 — Filter by Genre
+The system shall allow users to filter games by genre. The filter shall:
+
+Display all available genres drawn from the database (not hardcoded)
+Allow selecting one or multiple genres simultaneously
+Update the displayed game list immediately when a filter is applied or removed
+
+FR-03 — Filter by Play Status
+The system shall allow users to filter games by play status (e.g. Playing, Completed, Dropped, Backlog). The filter shall follow the same behavior as the genre filter.
+FR-04 — Filter by Difficulty
+The system shall allow users to filter games by difficulty level. The available difficulty values shall come from the data, not be hardcoded where possible.
+FR-05 — Filter by Platform
+The system shall allow users to filter games by platform (e.g. PC, PS5, Switch).
+FR-06 — Sorting Options
+The system shall allow users to sort the games list by:
+
+Title (A–Z and Z–A)
+Rating (highest first, lowest first)
+Enjoyment score (highest first, lowest first)
+Hours Played (most to least, least to most)
+Date Added (newest first, oldest first)
+
+The currently active sort option shall be visually indicated.
+FR-07 — Combined Filtering and Sorting
+The system shall support applying multiple filters and a sort option simultaneously. For example, a user should be able to filter by genre "RPG" and platform "PC" and sort by rating all at once.
+FR-08 — Active Filter Display
+The system shall display which filters are currently active in a visible way (e.g. chips/badges above the list). Each active filter shall have a removal control so users can deselect it individually without clearing everything.
+FR-09 — Clear All Filters
+The system shall provide a single "Clear All" control that removes all active filters and search terms and returns the full unfiltered list.
+FR-10 — Result Count
+The system shall display the number of games currently shown after filtering (e.g. "Showing 12 of 47 games").
+
+Non-Functional Requirements
+NFR-01 — Filter State in URL
+Filter and sort state should ideally be reflected in the URL as query parameters (e.g. ?genre=rpg&status=completed&sort=rating). This allows users to share or bookmark a filtered view and for the browser back button to work correctly.
+NFR-02 — Performance
+Filtering and sorting shall not require a full page reload. Client-side filtering is acceptable for modest dataset sizes. If the library grows large, consider debouncing the search input to avoid excessive re-renders.
+NFR-03 — No Broken States
+Applying a filter that returns zero results shall show the empty state component, not a blank page or error. Removing the filter shall restore the list.
+
+Acceptance Criteria
+
+Text search filters the game list and is case-insensitive
+Genre, status, difficulty, and platform filters all work independently and in combination
+All six sort options work correctly
+Active filters are displayed and individually removable
+A "Clear All" control resets everything
+The result count updates dynamically as filters change
+The empty state component appears when no games match
+No page crash occurs from any filter or sort combination

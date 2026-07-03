@@ -1,0 +1,48 @@
+Sprint 1 — User Requirements
+Context: What This Sprint Is About
+Sprint 1 is the foundation. No visible product exists yet, but the decisions made here shape everything downstream. The four roles — Admin, Gamer, User (registered), and Guest — each have different access levels, so the groundwork for that needs to be acknowledged now even if it isn't fully built until later.
+
+Role Definitions (Establish These Formally Now)
+Before writing any requirements, lock down what each role means:
+Admin — Has full system access. Manages the platform, can view all data, trigger data syncs, and configure settings. Likely just you during development.
+Gamer — The data source. Inputs game data into the Google Sheet. Does not necessarily interact with the web app directly, but their data drives everything.
+User — A guest who opted in by registering. Gets access to personalized features (recommendations, tracking, notes). Authentication will be built in a later sprint, but the role must be planned for now.
+Guest — Anyone who opens the web app without logging in. Gets read-only access to public content.
+
+Functional Requirements
+FR-01 — Project Initialization
+The system shall be initialized as a Next.js project with Tailwind CSS configured and a working local development server accessible via localhost.
+FR-02 — Database Setup
+The system shall have a SQLite database configured through Prisma ORM. The database file shall be created locally and excluded from version control via .gitignore.
+FR-03 — Environment Configuration
+The system shall load sensitive credentials (Database URL, Google Sheets API Key, Google Sheet ID) from a .env file that is never committed to the repository.
+FR-04 — Google Sheets API Connection
+The system shall successfully authenticate with the Google Sheets API using the configured API key and be able to make a test read request to the target spreadsheet.
+FR-05 — Role-Aware Database Schema (Draft)
+The database schema shall include a User model that supports the three web-facing roles: Guest (unauthenticated, no record needed), User (registered, stored in DB), and Admin (registered with elevated privileges). The Gamer role is external and does not require a DB record at this stage.
+FR-06 — Folder Structure
+The project shall follow a clear, scalable folder structure separating concerns: pages/routes, components, API handlers, database models, and utility functions.
+FR-07 — Version Control
+The project shall be connected to a GitHub repository with an initial commit representing the clean project scaffold. A .gitignore shall exclude node_modules, .env, and the SQLite database file.
+
+Non-Functional Requirements
+NFR-01 — Security Baseline
+No API keys, credentials, or secrets shall be hardcoded anywhere in the codebase. All sensitive values must come from environment variables.
+NFR-02 — Scalability Consideration
+The folder structure and database schema shall be designed with future sprints in mind — specifically the recommendation engine (Sprint 5) and user authentication (planned Sprint 9). Avoid throwaway structures.
+NFR-03 — Local Development Reliability
+The development environment shall be fully reproducible. Any collaborator (or future you) should be able to clone the repo, install dependencies, configure .env, and run the project successfully.
+
+Acceptance Criteria
+These are the things that must be true before Sprint 1 is considered done:
+
+npm run dev starts the application without errors
+Prisma connects to SQLite and can run migrations successfully
+A test API route can read data from the Google Sheet and return it (even just raw JSON is fine)
+The User model exists in the Prisma schema with a role field (e.g. ADMIN, USER)
+The .env file is listed in .gitignore and not pushed to GitHub
+The repo exists on GitHub with a meaningful initial commit
+
+
+A Note on the Gamer Role
+The Gamer doesn't interact with your web app — they interact with the Google Sheet. So for Sprint 1, the relevant question is: what does the sheet need to look like for your system to work? You should define (even informally) the expected columns in the spreadsheet — things like game title, genre, rating, difficulty, play status, hours played, tags, etc. — so that when you build the data pipeline in Sprint 2, you're not guessing at the schema.

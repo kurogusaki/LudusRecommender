@@ -1,0 +1,55 @@
+Sprint 9 — User Requirements (Optional)
+Authentication & Personalization
+Context: What This Sprint Is About
+Sprint 9 introduces user authentication and unlocks the features that were stubbed out in earlier sprints — personal libraries, reviews, and personalized recommendations. This is the sprint where the User role becomes fully realized.
+
+Role Relevance This Sprint
+Guest — Can now be prompted to sign up to access locked features.
+User (Registered) — Registration, login, personal library management, and personalized recommendations become available.
+Admin — Admin-specific controls (sync management, user management) are properly gated behind the admin role.
+Gamer — No change.
+
+Functional Requirements
+FR-01 — User Registration
+The system shall allow a Guest to create an account with an email and password. The registration flow shall include basic validation (valid email format, minimum password length).
+FR-02 — User Login
+The system shall allow a registered User to log in with their email and password. A session shall be created and maintained across page navigations.
+FR-03 — User Logout
+The system shall allow a logged-in User to log out, which clears their session.
+FR-04 — Role Enforcement
+The system shall enforce role-based access across all routes and API endpoints:
+
+Guest — Public pages only
+User — Public pages plus personal library and review features
+Admin — All of the above plus sync controls and any management pages
+
+FR-05 — Personal Library
+A logged-in User shall be able to add games from the public library to their personal list with a status (e.g. Want to Play, Playing, Completed, Dropped).
+FR-06 — Personal Reviews & Notes
+A logged-in User shall be able to write a personal note or review on any game detail page. This is stored against their user account, not in the shared game record.
+FR-07 — Personalized Recommendations
+The recommendation engine shall use the logged-in User's personal library and ratings to generate recommendations specific to them, replacing the general recommendations shown to Guests.
+FR-08 — Admin Sync UI
+The Admin shall have a protected UI page for triggering and reviewing sync history, rather than having to call the API route manually.
+FR-09 — Protected Route Handling
+Attempting to access a User or Admin protected page while logged out shall redirect the user to the login page with a message explaining why.
+
+Non-Functional Requirements
+NFR-01 — Password Security
+Passwords shall never be stored in plain text. Use a standard hashing library (e.g. bcrypt).
+NFR-02 — Session Security
+Sessions shall use secure, HTTP-only cookies. Session tokens shall not be exposed in URLs or local storage.
+NFR-03 — No Feature Regression
+All features available to Guests in previous sprints shall continue working exactly as before after auth is introduced.
+
+Acceptance Criteria
+
+A Guest can register and become a User
+A User can log in and log out
+Role-based access is enforced on all protected pages and API routes
+A User can add games to their personal library
+A User can write and view personal notes on game pages
+Personalized recommendations appear for logged-in Users
+The Admin sync UI is accessible only to Admins
+Accessing a protected page while logged out redirects to login
+Passwords are hashed in the database

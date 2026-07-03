@@ -3,10 +3,10 @@ import { GamesList } from "@/components/games/GamesList";
 
 async function getAllGames() {
   return prisma.game.findMany({
-    orderBy: { number: "asc" },
     select: {
       id: true,
       name: true,
+      cover: true,
       platform: true,
       loveRank: true,
       difficultyRank: true,
