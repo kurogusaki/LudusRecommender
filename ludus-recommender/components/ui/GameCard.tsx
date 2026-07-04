@@ -102,10 +102,10 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
       style={{
         background: hovered ? "var(--border)" : "var(--surface)",
         borderBottom: "1px solid var(--border)",
-        padding: "3rem 3.5rem",
+        padding: "3rem 4.5rem",
         display: "grid",
-        gridTemplateColumns: "72px 1fr auto",
-        gap: "1.25rem",
+        gridTemplateColumns: "110px 1fr auto",
+        gap: "2rem",
         alignItems: "center",
         transition: "background 0.15s",
       }}
@@ -114,8 +114,8 @@ export default function GameCard({ game, index }: { game: GameRow; index: number
       <Image
       src={game.cover ?? "/covers/default.webp"}
       alt={`${game.name} cover`}
-      width={72}
-      height={108}
+      width={110}
+      height={165}
       style={{
         borderRadius: "8px",
         objectFit: "cover",

@@ -98,7 +98,14 @@ export default function RootLayout({
     <html lang="en" className={`${jersey25.variable}`} suppressHydrationWarning>
   <body className="min-h-screen flex flex-col">
     <Header />
-    <main style={{ flex: 1, width: "100%", maxWidth: "80rem", margin: "0 auto", padding: "2.5rem 4rem" }}>
+    <main 
+    style={{ 
+      flex: 1, 
+      width: "100%", 
+      maxWidth: "95vw", 
+      margin: "0 auto", 
+      padding: "2.5rem 4rem" 
+      }}>
       {children}
     </main>
     <Footer />

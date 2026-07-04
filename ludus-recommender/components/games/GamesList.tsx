@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 import Badge from "@/components/ui/Badge";
@@ -33,6 +34,19 @@ const RANK_COLORS: Record<string, string> = {
 // ─── Main export ──────────────────────────────────────────────
 
 export function GamesList({ games }: { games: GameRow[] }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+const filteredGames = useMemo(() => {
+  const query = searchQuery.trim().toLowerCase();
+
+  if (!query) return games;
+
+  return games.filter((game) => {
+    return (
+      game.name.toLowerCase().includes(query)
+    );
+  });
+}, [games, searchQuery]);
   return (
     <div style={{ padding: "4rem 0", display: "flex", flexDirection: "column", gap: "2rem" }}>
 
@@ -69,6 +83,22 @@ export function GamesList({ games }: { games: GameRow[] }) {
         </div>
       }
     />
+    {/* Search bar */}
+        <input
+          type="text"
+          placeholder="Search games..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "0.85rem 1rem",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            color: "var(--text)",
+            fontSize: "0.95rem",
+            outline: "none",
+          }}
+        />
 
       {/* Legend */}
       {games.length > 0 && (
@@ -131,11 +161,16 @@ export function GamesList({ games }: { games: GameRow[] }) {
 
       {/* Games list */}
       {games.length === 0 ? (
-        <EmptyState
-      title="No Games Found"
-      message="Your library is empty. Sync your Google Sheet to populate the games database."
-        />
-      ) : (
+          <EmptyState
+            title="No Games Found"
+            message="Your library is empty. Sync your Google Sheet to populate the games database."
+          />
+        ) : filteredGames.length === 0 ? (
+          <EmptyState
+            title="No Results"
+            message="Try changing your search or clearing the search box."
+          />
+        ) : (
         <div
           style={{
             border: "1px solid var(--border)",
@@ -145,7 +180,7 @@ export function GamesList({ games }: { games: GameRow[] }) {
             gap: "1px",
           }}
         >
-          {games.map((game, i) => (
+          {filteredGames.map((game, i) => (
             <GameCard key={game.id} game={game} index={i} />
           ))}
         </div>

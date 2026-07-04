@@ -38,6 +38,7 @@ export default async function Home() {
         <h1 style={{
           fontFamily: "var(--font-ui), sans-serif",
           fontSize: "clamp(2.5rem, 6vw, 5rem)",
+          fontWeight: 700,
           color: "var(--text)",
           letterSpacing: "0.05em",
           lineHeight: 1.1,
