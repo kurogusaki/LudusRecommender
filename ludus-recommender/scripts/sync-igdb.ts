@@ -21,11 +21,6 @@ async function main() {
     try {
       console.log(`\n[${i + 1}/${games.length}] ${game.name}`);
 
-      if (game.igdbId) {
-        console.log("⏭ Already synced");
-        continue;
-      }
-
       const result = await searchGame(game.name.trim(), token);
 
       if (!result) {
@@ -43,6 +38,11 @@ async function main() {
         },
         data: metadata,
       });
+    
+      if (game.igdbId) {
+        console.log("⏭ Already synced");
+        continue;
+      }
 
       console.log("✔ Metadata synced");
     } catch (err) {

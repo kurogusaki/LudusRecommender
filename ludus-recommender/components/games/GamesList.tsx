@@ -5,6 +5,8 @@ import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 import Badge from "@/components/ui/Badge";
 import GameCard from "@/components/ui/GameCard";
+import FilterGroup from "@/components/ui/FilterGroup";
+import MultiSelect from "@/components/ui/MultiSelect";
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -60,11 +62,65 @@ const RANK_COLORS: Record<string, string> = {
   F: "#dc7a7a",
 };
 
+const RANK_ORDER = ["S", "A", "B", "C", "D", "F"];
+
+// Sub-components
+
+const SORT_OPTIONS = [
+  { value: "title-asc", label: "Title (A–Z)" },
+  { value: "title-desc", label: "Title (Z–A)" },
+
+  { value: "rating-desc", label: "Rating (Highest)" },
+  { value: "rating-asc", label: "Rating (Lowest)" },
+
+  { value: "hours-desc", label: "Hours Played (Most)" },
+  { value: "hours-asc", label: "Hours Played (Least)" },
+
+  { value: "date-desc", label: "Date Added (Newest)" },
+  { value: "date-asc", label: "Date Added (Oldest)" },
+];
+
+export const CONTROL = {
+    height: "38px",
+    radius: "8px",
+    paddingX: "0.75rem",
+    fontSize: "0.85rem",
+};
+
 // ─── Main export ──────────────────────────────────────────────
 
 export function GamesList({ games }: { games: GameRow[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>([]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [sortOption, setSortOption] = useState("title-asc");
+
+const availablePlatforms = useMemo(() => {
+  const platforms = new Set<string>();
+
+  games.forEach((game) => {
+    game.platforms?.forEach((platform) => {
+      platforms.add(platform.name);
+    });
+  });
+
+  return [...platforms].sort();
+}, [games]);  
+
+const availableDifficulties = useMemo(() => {
+  const ranks = [
+    ...new Set(
+      games
+        .map((game) => game.difficultyRank)
+        .filter((rank): rank is string => !!rank)
+    ),
+  ];
+
+  return ranks.sort(
+    (a, b) => RANK_ORDER.indexOf(a) - RANK_ORDER.indexOf(b)
+  );
+}, [games]);
 
 const availableGenres = useMemo(() => {
   const genres = new Set<string>();
@@ -84,6 +140,29 @@ const filteredGames = useMemo(() => {
   let filtered = [...games];
 
   const query = searchQuery.trim().toLowerCase();
+
+// Platform filter
+if (selectedPlatforms.length > 0) {
+  filtered = filtered.filter((game) => {
+    const platforms =
+      game.platforms?.map((platform) => platform.name) ?? [];
+
+    return selectedPlatforms.some((platform) =>
+      platforms.includes(platform)
+    );
+  });
+}
+
+// Difficulty filter
+
+if (selectedDifficulties.length > 0) {
+  filtered = filtered.filter((game) => {
+    return (
+      game.difficultyRank &&
+      selectedDifficulties.includes(game.difficultyRank)
+    );
+  });
+}
 
   if (query) {
     filtered = filtered.filter((game) => {
@@ -109,8 +188,45 @@ const filteredGames = useMemo(() => {
     });
   }
 
+  filtered.sort((a, b) => {
+  switch (sortOption) {
+    case "title-asc":
+      return a.name.localeCompare(b.name);
+
+    case "title-desc":
+      return b.name.localeCompare(a.name);
+
+    case "rating-desc":
+      return (b.total ?? 0) - (a.total ?? 0);
+
+    case "rating-asc":
+      return (a.total ?? 0) - (b.total ?? 0);
+
+    case "hours-desc":
+      return (b.list ?? 0) - (a.list ?? 0);
+
+    case "hours-asc":
+      return (a.list ?? 0) - (b.list ?? 0);
+
+    case "date-desc":
+      return (
+        new Date(b.date ?? 0).getTime() -
+        new Date(a.date ?? 0).getTime()
+      );
+
+    case "date-asc":
+      return (
+        new Date(a.date ?? 0).getTime() -
+        new Date(b.date ?? 0).getTime()
+      );
+
+    default:
+      return 0;
+  }
+});
+
   return filtered;
-}, [games, searchQuery, selectedGenres]);
+}, [games, searchQuery, selectedGenres, selectedDifficulties, selectedPlatforms, sortOption]);
   return (
     <div style={{ padding: "4rem 0", display: "flex", flexDirection: "column", gap: "2rem" }}>
 
@@ -154,45 +270,119 @@ const filteredGames = useMemo(() => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{
-            width: "100%",
-            padding: "0.85rem 1rem",
+            height: CONTROL.height,
+            padding: `0 ${CONTROL.paddingX}`,
+            fontSize: CONTROL.fontSize,
+            borderRadius: CONTROL.radius,
             background: "var(--surface)",
             border: "1px solid var(--border)",
             color: "var(--text)",
-            fontSize: "0.95rem",
             outline: "none",
           }}
         />
+  <span
+    style={{
+        fontFamily: "var(--font-ui), sans-serif",
+        fontSize: "0.7rem",
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+        color: "var(--muted)",
+    }}
+>
+    Discover
+</span>
+      {/* FILTERS */}
+      <div
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "1rem",
+    alignItems: "start",
+  }}
+>
+  <FilterGroup title="Genres">
+  <MultiSelect
+    placeholder="Select genres"
+    options={availableGenres}
+    selected={selectedGenres}
+    onChange={setSelectedGenres}
+  />
+</FilterGroup>
 
-      {/* Genre filters */}
-            <div
-        style={{
-          display: "flex",
-          gap: "0.5rem",
-          flexWrap: "wrap",
-        }}
-      >
-        {availableGenres.map((genre) => (
-          <Badge
-            key={genre}
-            label={genre}
-            active={selectedGenres.includes(genre)}
-            onClick={() => {
-              setSelectedGenres((current) =>
-                current.includes(genre)
-                  ? current.filter((g) => g !== genre)
-                  : [...current, genre]
-              );
-            }}
-          />
-        ))}
-      </div>
+<FilterGroup title="Platforms">
+  <MultiSelect
+    placeholder="Select platforms"
+    options={availablePlatforms}
+    selected={selectedPlatforms}
+    onChange={setSelectedPlatforms}
+  />
+</FilterGroup>
+
+  <FilterGroup title="Sort By">
+    <select
+      value={sortOption}
+      onChange={(e) => setSortOption(e.target.value)}
+      style={{
+        width: "100%",
+        height: CONTROL.height,
+        padding: `0 ${CONTROL.paddingX}`,
+        fontSize: CONTROL.fontSize,
+        borderRadius: CONTROL.radius,
+        appearance: "none",
+        WebkitAppearance: "none",
+        MozAppearance: "none",
+        cursor: "pointer",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        color: "var(--text)",
+        fontFamily: "var(--font-body), sans-serif",
+      }}
+    >
+      {SORT_OPTIONS.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+      
+    </select>
+
+    
+  </FilterGroup>
+
+  <FilterGroup title="Difficulty">
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.5rem",
+      }}
+    >
+      {availableDifficulties.map((difficulty) => (
+        <Badge
+          key={difficulty}
+          label={difficulty}
+          color={RANK_COLORS[difficulty]}
+          active={selectedDifficulties.includes(difficulty)}
+          onClick={() => {
+            setSelectedDifficulties((current) =>
+              current.includes(difficulty)
+                ? current.filter((d) => d !== difficulty)
+                : [...current, difficulty]
+            );
+          }}
+        />
+      ))}
+    </div>
+  </FilterGroup>
+</div>
+      
       {/* Legend */}
       {games.length > 0 && (
         <div
           style={{
             display: "flex",
-            gap: "2rem",
+            gap: "1.5rem",
             padding: "0.75rem 1.5rem",
             background: "var(--surface)",
             border: "1px solid var(--border)",
