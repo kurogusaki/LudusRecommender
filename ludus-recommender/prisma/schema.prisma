@@ -36,28 +36,48 @@ model Session {
 
 model Game {
   id             String   @id @default(cuid())
+
   number         Int?
   name           String
+
+  // User/library data
+  platform       String?
   cover          String?
   date           String?
-  platform       String?
 
   loveRank       String?
   difficultyRank String?
 
   year           Int?
+
   love           Float?
   difficulty     Float?
-  pride          Float?
+ pride          Float?
   achievement    Float?
   list           Float?
   total          Float?
 
+  // IGDB metadata
+  igdbId         Int?      @unique
+  slug           String?
+  summary        String?
+
+  genres         Json?
+  platforms      Json?
+  themes         Json?
+  gameModes      Json?
+  keywords       Json?
+
+  developer      String?
+  publisher      String?
+  releaseDate    DateTime?
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
   syncLogs       SyncLog[]
 
-  @@unique([name, platform])  // ← composite unique key
+  @@unique([name, platform])
 }
 
 // ─── Sync Tracking ────────────────────────────────────────────

@@ -2,70 +2,13 @@ import "dotenv/config";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
+import {
+  getAccessToken,
+  searchGame,
+  getCoverUrl,
+} from "../lib/igdb";
 
 const prisma = new PrismaClient();
-
-async function getAccessToken(): Promise<string> {
-  const clientId = process.env.TWITCH_CLIENT_ID;
-  const clientSecret = process.env.TWITCH_CLIENT_SECRET;
-
-  if (!clientId || !clientSecret) {
-    throw new Error("Missing Twitch credentials in .env");
-  }
-
-  const response = await fetch(
-    "https://id.twitch.tv/oauth2/token",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: "client_credentials",
-      }),
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(`OAuth failed: ${response.status}`);
-  }
-
-  const data = await response.json();
-
-  return data.access_token;
-}
-
-async function searchGame(gameName: string, token: string) {
-  const clientId = process.env.TWITCH_CLIENT_ID!;
-
-  const query = `
-    search "${gameName}";
-    fields name,cover.image_id,first_release_date;
-    limit 1;
-  `;
-
-  const response = await fetch("https://api.igdb.com/v4/games", {
-    method: "POST",
-    headers: {
-      "Client-ID": clientId,
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "text/plain",
-    },
-    body: query,
-  });
-
-  if (!response.ok) {
-    throw new Error(`IGDB request failed: ${response.status}`);
-  }
-
-  return response.json();
-}
-
-function getCoverUrl(imageId: string): string {
-  return `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.webp`;
-}
 
 async function downloadCover(url: string, filename: string) {
   const response = await fetch(url);
@@ -105,14 +48,14 @@ async function main() {
 
   const result = await searchGame(game.name.trim(), token);
 
-  if (result.length === 0) {
-    console.log(`❌ No match found`);
+  if (!result) {
+    console.log("❌ No match found");
     continue;
   }
 
-  console.log(`✅ Found: ${result[0].name}`);
+  console.log(`✅ Found: ${result.name}`);
 
-  const cover = result[0].cover;
+  const cover = result.cover;
 
   if (!cover) {
     console.log("⚠️ Found game but no cover available");
@@ -144,4 +87,8 @@ async function main() {
 }
 }
 
-main().catch(console.error);
+main()
+  .catch(console.error)
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
