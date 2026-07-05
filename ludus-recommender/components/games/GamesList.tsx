@@ -10,14 +10,43 @@ import GameCard from "@/components/ui/GameCard";
 
 export interface GameRow {
   id: string;
+
+  number: number | null;
+
   name: string;
+
   cover: string | null;
+
   platform: string | null;
+
   loveRank: string | null;
   difficultyRank: string | null;
-  total: number | null;
-  date: string | null;
+
   year: number | null;
+
+  love: number | null;
+  difficulty: number | null;
+  pride: number | null;
+  achievement: number | null;
+  list: number | null;
+  total: number | null;
+
+  date: string | null;
+
+  igdbId: number | null;
+  slug: string | null;
+  summary: string | null;
+
+  genres: { id: number; name: string }[];
+  platforms: { id: number; name: string }[];
+  themes: { id: number; name: string }[];
+  gameModes: { id: number; name: string }[];
+  keywords: { id: number; name: string }[];
+
+  developer: string | null;
+  publisher: string | null;
+
+  releaseDate: Date | null;
 }
 
 // ─── Rank config ─────────────────────────────────────────────
@@ -35,18 +64,53 @@ const RANK_COLORS: Record<string, string> = {
 
 export function GamesList({ games }: { games: GameRow[] }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
+const availableGenres = useMemo(() => {
+  const genres = new Set<string>();
+
+  games.forEach((game) => {
+    if (!game.genres) return;
+
+    const list = game.genres as { id: number; name: string }[];
+
+    list.forEach((genre) => genres.add(genre.name));
+  });
+
+  return [...genres].sort();
+}, [games]);
 
 const filteredGames = useMemo(() => {
+  let filtered = [...games];
+
   const query = searchQuery.trim().toLowerCase();
 
-  if (!query) return games;
+  if (query) {
+    filtered = filtered.filter((game) => {
+      const genres = game.genres
+        ?.map((g) => g.name.toLowerCase())
+        .join(" ") ?? "";
 
-  return games.filter((game) => {
-    return (
-      game.name.toLowerCase().includes(query)
-    );
-  });
-}, [games, searchQuery]);
+      return (
+        game.name.toLowerCase().includes(query) ||
+        genres.includes(query)
+      );
+    });
+  }
+
+  if (selectedGenres.length > 0) {
+    filtered = filtered.filter((game) => {
+      const genres =
+        game.genres?.map((g) => g.name) ?? [];
+
+      return selectedGenres.some((genre) =>
+        genres.includes(genre)
+      );
+    });
+  }
+
+  return filtered;
+}, [games, searchQuery, selectedGenres]);
   return (
     <div style={{ padding: "4rem 0", display: "flex", flexDirection: "column", gap: "2rem" }}>
 
@@ -100,6 +164,29 @@ const filteredGames = useMemo(() => {
           }}
         />
 
+      {/* Genre filters */}
+            <div
+        style={{
+          display: "flex",
+          gap: "0.5rem",
+          flexWrap: "wrap",
+        }}
+      >
+        {availableGenres.map((genre) => (
+          <Badge
+            key={genre}
+            label={genre}
+            active={selectedGenres.includes(genre)}
+            onClick={() => {
+              setSelectedGenres((current) =>
+                current.includes(genre)
+                  ? current.filter((g) => g !== genre)
+                  : [...current, genre]
+              );
+            }}
+          />
+        ))}
+      </div>
       {/* Legend */}
       {games.length > 0 && (
         <div
