@@ -7,6 +7,7 @@ import Badge from "@/components/ui/Badge";
 import GameCard from "@/components/ui/GameCard";
 import FilterGroup from "@/components/ui/FilterGroup";
 import MultiSelect from "@/components/ui/MultiSelect";
+import { CONTROL } from "@/lib/ui";
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -79,13 +80,6 @@ const SORT_OPTIONS = [
   { value: "date-desc", label: "Date Added (Newest)" },
   { value: "date-asc", label: "Date Added (Oldest)" },
 ];
-
-export const CONTROL = {
-    height: "38px",
-    radius: "8px",
-    paddingX: "0.75rem",
-    fontSize: "0.85rem",
-};
 
 // ─── Main export ──────────────────────────────────────────────
 

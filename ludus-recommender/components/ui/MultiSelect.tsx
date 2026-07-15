@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {CONTROL} from "@/components/games/GamesList";
+import { CONTROL } from "@/lib/ui";
 
 interface MultiSelectProps {
   options: string[];
@@ -65,12 +65,12 @@ export default function MultiSelect({
         type="button"
         onClick={() => setOpen(!open)}
         style={{
-            width: "100%",
-            height: CONTROL.height,
-            padding: `0 ${CONTROL.paddingX}`,
-            fontSize: CONTROL.fontSize,
-            borderRadius: CONTROL.radius,
-            fontFamily: "var(--font-body), sans-serif",
+          width: "100%",
+          height: CONTROL.height,
+          padding: `0 ${CONTROL.paddingX}`,
+          fontSize: CONTROL.fontSize,
+          borderRadius: CONTROL.radius,
+          fontFamily: "var(--font-body), sans-serif",
           background: "var(--surface)",
           border: "1px solid var(--border)",
           color: "var(--text)",
@@ -79,10 +79,15 @@ export default function MultiSelect({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          userSelect: "none",
         }}
       >
         <span
           style={{
+            color:
+              selected.length === 0
+                ? "var(--muted)"
+                : "var(--text)",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -92,39 +97,40 @@ export default function MultiSelect({
         </span>
 
         <svg
-  width="12"
-  height="12"
-  viewBox="0 0 24 24"
-  fill="none"
-  style={{
-    transform: open ? "rotate(180deg)" : "rotate(0deg)",
-    transition: "transform 0.2s ease",
-    flexShrink: 0,
-  }}
->
-  <path
-    d="M7 10L12 15L17 10"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  />
-</svg>
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          style={{
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+            flexShrink: 0,
+          }}
+        >
+          <path
+            d="M7 10L12 15L17 10"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
 
       {open && (
         <div
           style={{
             position: "absolute",
-            borderRadius: CONTROL.radius,
             top: "calc(100% + 0.35rem)",
             left: 0,
             right: 0,
             background: "var(--surface)",
             border: "1px solid var(--border)",
+            borderRadius: CONTROL.radius,
+            boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
             maxHeight: "250px",
             overflowY: "auto",
-            zIndex: 100,
+            zIndex: 1000,
           }}
         >
           {options.map((option) => (
@@ -142,36 +148,38 @@ export default function MultiSelect({
                 type="checkbox"
                 checked={selected.includes(option)}
                 onChange={() => toggle(option)}
+                style={{
+                  accentColor: "var(--accent)",
+                }}
               />
 
               {option}
             </label>
           ))}
 
-                {selected.length > 0 && (
-        <button
-            type="button"
-            onClick={() => onChange([])}
-            style={{
-            width: "100%",
-            padding: "0.75rem",
-            border: "none",
-            borderTop: "1px solid var(--border)",
-            background: "transparent",
-            color: "var(--accent)",
-            cursor: "pointer",
-            fontFamily: "var(--font-ui), sans-serif",
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-            fontSize: "0.7rem",
-            }}
-        >
-            Clear All
-        </button>
-        )}
-
+          {selected.length > 0 && (
+            <button
+              type="button"
+              onClick={() => onChange([])}
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                border: "none",
+                borderTop: "1px solid var(--border)",
+                background: "transparent",
+                color: "var(--accent)",
+                cursor: "pointer",
+                fontFamily: "var(--font-ui), sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                fontSize: "0.7rem",
+              }}
+            >
+              Clear All
+            </button>
+          )}
         </div>
       )}
     </div>
   );
-}
+} 
